@@ -1,0 +1,74 @@
+<% layout('/layouts/boilerplate.ejs') %>
+<script> 
+  const mapToken = "<%= process.env.MAP_TOKEN %>";
+  const listing= <%- JSON.stringify(listing) %> ;
+</script>
+
+<div class="row-1 mt-3">
+  <div class="col-8 offset-2">
+   
+        <h3 class="col-8 offset-2">  <b><%= listing.title %></b></h3>
+        
+        <div class="card col-6 offset-2  show-card">
+        <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
+        <div class="card-body">
+          <p class="card-text">
+            <br>
+         <i> Owned By : <%= listing.owner.username %></i> <br>
+            <%= listing.description %> <br>
+            &#8377 <%= listing.price.toLocaleString("en-In") %> <br>
+            <%= listing.location %> <br>
+            <%= listing.country %> 
+        </p>
+        </div>
+        </div>
+   
+
+        <br>
+      
+        <div class="btns">
+        <a
+        href="/listings/<%= listing._id %>/edit"
+        class="btn
+         col-1 offset-3"> Edit  </a>
+    
+        <form action="/listings/<%=listing._id%>/?_method=DELETE" method="POST">
+        <button class="btn btn-dark offset-5 "> Delete </button>
+        </form>
+        </div>
+      </div>
+    </div>
+        <br>
+        <hr>
+        <div class="col-8 offset-2">
+        <h4>Leave a Review</h4>
+        <form action="/listings/<%= listing._id %>/reviews" method="post" class="needs-validation" novalidate>
+           <div class="mb-3 mt-3">
+            <label for="rating" form-label > Rating</label>
+            <input type="range" min="1" max="5" name="review[rating]" id="rating" class="form-range">
+           
+           <div  class="mb-3 mt-3">
+             <label for="comment" class="form-label">Comments</label>
+             <input type="textarea" name="review[comment]" id="comment" rows="15" cols="20"  class="form-control" required>
+           </div>
+           <br>
+           <button class="btn btn-outline-dark" class="mb-3 mt-3"> Submit</button>
+        </form>
+        <hr>
+      </div>
+    </div>
+   
+    <div class="col-6 offset-3 mb-3">
+      <h3> Where you'll be</h3>
+      <div id="map"></div>
+    </div>  
+
+    <script src="/js/map.js"></script>
+ 
+
+       
+
+
+
+  
+
